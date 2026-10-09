@@ -3,9 +3,9 @@ import "./globals.css";
 import { BandaDemo } from "@/components/banda-demo";
 
 export const metadata: Metadata = {
-  title: "Ortiz-Rivera contadores — Estudio contable online para PyMEs y Monotributistas",
+  title: "Patricia Rivera — Servicios contables | Demo",
   description:
-    "Gestión contable, liquidación de impuestos (IVA, IIBB, F.931) y facturación en un solo lugar, con la supervisión de contadores expertos en Argentina.",
+    "Demostración de un sistema de gestión para estudios contables argentinos: vencimientos, DDJJ, planes de pago, recategorización de monotributo y portal de clientes. Datos ficticios.",
 };
 
 export default function RootLayout({

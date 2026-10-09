@@ -5,7 +5,7 @@ fiscales de toda su cartera: vencimientos, declaraciones juradas, planes de
 pago, recategorización de monotributo y un portal donde cada cliente ve su
 propia situación.
 
-**Demo navegable:** _(pendiente de publicar)_
+**Demo navegable:** https://contable-saas-demo.vercel.app
 **Acceso de prueba:** usuario `20111111112`, contraseña `DemoEstudio2026`
 
 > Los datos del demo son íntegramente inventados. Ningún nombre, CUIT o

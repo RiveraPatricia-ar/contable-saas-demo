@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ESTUDIO } from "@/lib/constants";
 
-export const metadata = { title: "Términos y privacidad — Ortiz-Rivera contadores" };
+export const metadata = { title: "Términos y privacidad — Patricia Rivera Servicios contables" };
 
 export default function LegalesPage() {
   return (

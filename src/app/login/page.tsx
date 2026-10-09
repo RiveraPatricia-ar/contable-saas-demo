@@ -4,7 +4,7 @@ import { LoginForm } from "./login-form";
 import { CredencialesDemo } from "./credenciales-demo";
 import { ESTUDIO } from "@/lib/constants";
 
-export const metadata = { title: "Iniciar sesión — Ortiz-Rivera contadores" };
+export const metadata = { title: "Iniciar sesión — Patricia Rivera Servicios contables" };
 
 export default function LoginPage() {
   return (

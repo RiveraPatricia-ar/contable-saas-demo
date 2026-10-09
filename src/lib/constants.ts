@@ -2,14 +2,14 @@
  * Datos del estudio. Editar con los datos reales antes de publicar.
  */
 export const ESTUDIO = {
-  nombre: "Ortiz-Rivera contadores",
-  razonSocial: "Estudio Contable S.R.L.",
-  cuit: "30-00000000-0",
-  matricula: "CPCE — Tomo 000 Folio 000",
-  email: "contacto@estudiocontable.com.ar",
-  telefono: "+54 11 0000-0000",
-  whatsapp: "+54 9 11 0000-0000",
-  domicilio: "Av. Corrientes 1234, CABA, Argentina",
+  nombre: "Patricia Rivera — Servicios contables",
+  razonSocial: "Patricia Rivera — Servicios contables",
+  cuit: "Demostración",
+  matricula: "Sitio de demostración — datos ficticios",
+  email: "contacto@ejemplo.test",
+  telefono: "—",
+  whatsapp: "—",
+  domicilio: "Tucumán, Argentina",
 };
 
 export const IMPUESTOS = [

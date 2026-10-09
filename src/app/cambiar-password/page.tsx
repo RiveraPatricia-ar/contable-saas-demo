@@ -4,7 +4,7 @@ import { getProfile } from "@/lib/auth";
 import { CambiarPasswordForm } from "./form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-export const metadata = { title: "Cambiar contraseña — Ortiz-Rivera contadores" };
+export const metadata = { title: "Cambiar contraseña — Patricia Rivera Servicios contables" };
 
 export default async function CambiarPasswordPage() {
   const profile = await getProfile();
