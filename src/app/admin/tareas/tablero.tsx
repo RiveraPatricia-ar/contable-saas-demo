@@ -7,7 +7,7 @@ import type { TareaConRelaciones } from "./page";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select } from "@/components/ui/select";
-import { formatFecha, diasHasta } from "@/lib/utils";
+import { formatFecha, diasHasta, formatCUIT } from "@/lib/utils";
 
 const COLUMNAS = [
   { estado: "PENDIENTE", titulo: "Pendiente" },
@@ -58,6 +58,11 @@ export function TableroTareas({ tareas }: { tareas: TareaConRelaciones[] }) {
                     {t.clientes_estudio?.razon_social && (
                       <p className="mt-1.5 text-xs text-muted-foreground">
                         {t.clientes_estudio.razon_social}
+                      </p>
+                    )}
+                    {t.clientes_estudio?.cuit && (
+                      <p className="text-xs tabular-nums text-muted-foreground">
+                        CUIT {formatCUIT(t.clientes_estudio.cuit)}
                       </p>
                     )}
 

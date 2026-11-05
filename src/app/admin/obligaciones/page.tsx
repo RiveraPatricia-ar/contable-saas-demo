@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { StatCard } from "@/components/stat-card";
 import Link from "next/link";
-import { FileCheck2, Filter, Send, Wallet } from "lucide-react";
+import { FileCheck2, FileSpreadsheet, Filter, Send, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -72,6 +72,11 @@ export default async function ObligacionesPage({
     .filter(Boolean)
     .join(" · ");
 
+  const paramsExportar = new URLSearchParams({ periodo });
+  if (clienteId) paramsExportar.set("cliente", clienteId);
+  if (impuesto) paramsExportar.set("impuesto", impuesto);
+  const exportarHref = `/admin/obligaciones/exportar?${paramsExportar.toString()}`;
+
   return (
     <div className="space-y-5">
       <PanelGenerar periodo={periodo} clientes={clientes} />
@@ -135,6 +140,13 @@ export default async function ObligacionesPage({
                 </Link>
               </Button>
             ) : null}
+
+            <Button asChild variant="outline" className="ml-auto">
+              <a href={exportarHref}>
+                <FileSpreadsheet className="h-4 w-4" />
+                Exportar a Excel
+              </a>
+            </Button>
           </form>
         </CardContent>
       </Card>

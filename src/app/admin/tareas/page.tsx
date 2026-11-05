@@ -6,7 +6,7 @@ import type { ClienteEstudio, Profile, TareaEstudio } from "@/types/database";
 export const dynamic = "force-dynamic";
 
 export type TareaConRelaciones = TareaEstudio & {
-  clientes_estudio: Pick<ClienteEstudio, "razon_social"> | null;
+  clientes_estudio: Pick<ClienteEstudio, "razon_social" | "cuit"> | null;
   profiles: Pick<Profile, "nombre_completo"> | null;
 };
 
@@ -16,7 +16,7 @@ export default async function TareasPage() {
   const [tareasRes, clientesRes, staffRes] = await Promise.all([
     supabase
       .from("tareas_estudio")
-      .select("*, clientes_estudio(razon_social), profiles:asignado_a(nombre_completo)")
+      .select("*, clientes_estudio(razon_social, cuit), profiles:asignado_a(nombre_completo)")
       .order("fecha_limite", { ascending: true, nullsFirst: false })
       .limit(200),
     supabase
