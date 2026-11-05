@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AlertTriangle, CalendarClock, CreditCard, Search, Send } from "lucide-react";
+import { AlertTriangle, CalendarClock, CreditCard, FileSpreadsheet, Search, Send } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -125,6 +125,12 @@ export default async function PlanesPage({
                 </span>
               </>
             )}
+            <Button asChild variant="outline" className="ml-auto">
+              <a href={`/admin/planes/exportar${q ? `?q=${encodeURIComponent(q)}` : ""}`}>
+                <FileSpreadsheet className="mr-2 h-4 w-4" />
+                Exportar a Excel
+              </a>
+            </Button>
           </form>
         </CardHeader>
         <CardContent className="px-0 pb-0">
