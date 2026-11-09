@@ -44,7 +44,7 @@ function SubirPdf({
 }: {
   ddjjId: string;
   clienteId: string;
-  tipo: "vep" | "acuse";
+  tipo: "vep" | "acuse" | "ddjj";
 }) {
   const [pendiente, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -73,7 +73,7 @@ function SubirPdf({
       ) : (
         <Upload className="h-3.5 w-3.5" />
       )}
-      {tipo === "vep" ? "VEP" : "Acuse"}
+      {tipo === "vep" ? "VEP" : tipo === "ddjj" ? "DDJJ" : "Acuse"}
       <input
         type="file"
         accept="application/pdf,image/*"
@@ -230,6 +230,11 @@ export function FilaDDJJ({ ddjj }: { ddjj: DDJJConCliente }) {
             <BotonDescarga path={ddjj.path_pdf_acuse} label="Acuse" />
           ) : (
             <SubirPdf ddjjId={ddjj.id} clienteId={ddjj.cliente_id} tipo="acuse" />
+          )}
+          {ddjj.path_pdf_ddjj ? (
+            <BotonDescarga path={ddjj.path_pdf_ddjj} label="DDJJ" />
+          ) : (
+            <SubirPdf ddjjId={ddjj.id} clienteId={ddjj.cliente_id} tipo="ddjj" />
           )}
         </div>
       </TableCell>

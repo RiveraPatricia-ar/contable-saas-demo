@@ -93,6 +93,7 @@ export interface DeclaracionJurada {
   codigo_vep: string | null;
   path_pdf_vep: string | null;
   path_pdf_acuse: string | null;
+  path_pdf_ddjj: string | null;
   estado: EstadoTramite;
   fecha_presentacion: string | null;
   fecha_pago: string | null;

@@ -13,6 +13,7 @@ const ETIQUETAS_CATEGORIA: Record<string, string> = {
   CONSTANCIA: "Constancia de inscripción",
   F931: "F.931",
   ACUSE: "Acuse de presentación",
+  DDJJ: "Declaración jurada",
   BALANCE: "Balance",
   HABILITACION: "Habilitación",
   VEP: "VEP",

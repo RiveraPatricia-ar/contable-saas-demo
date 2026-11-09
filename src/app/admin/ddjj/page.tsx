@@ -89,7 +89,7 @@ export default async function DDJJPage({
                   periodo ? ` del período ${periodo}` : ""
                 } (hasta 100).`
               : "Últimas 100 liquidaciones cargadas."}{" "}
-            Adjuntá el VEP y el acuse desde cada fila.
+            Adjuntá el VEP, el acuse y la DDJJ desde cada fila.
           </CardDescription>
           <form className="flex flex-wrap items-center gap-3 pt-2">
             <div className="relative w-full sm:max-w-xs">

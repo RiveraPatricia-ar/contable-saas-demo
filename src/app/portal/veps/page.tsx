@@ -104,7 +104,14 @@ export default async function VepsPage() {
                             variant="ghost"
                           />
                         )}
-                        {!d.path_pdf_vep && !d.path_pdf_acuse && (
+                        {d.path_pdf_ddjj && (
+                          <BotonDescarga
+                            path={d.path_pdf_ddjj}
+                            label="DDJJ"
+                            variant="ghost"
+                          />
+                        )}
+                        {!d.path_pdf_vep && !d.path_pdf_acuse && !d.path_pdf_ddjj && (
                           <span className="text-xs text-muted-foreground">
                             Sin adjuntos
                           </span>

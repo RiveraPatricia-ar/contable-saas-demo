@@ -71,20 +71,21 @@ export async function cambiarEstadoDDJJ(id: string, estado: string) {
 }
 
 /**
- * Sube un PDF (VEP o acuse) al bucket `documentos` y lo enlaza a la DDJJ.
+ * Sube un PDF (VEP, acuse o la DDJJ generada) al bucket `documentos` y lo enlaza a la DDJJ.
  * Convención de ruta: <cliente_id>/<categoria>/<archivo>
  */
 export async function subirPdfDDJJ(formData: FormData): Promise<DDJJState> {
   const supabase = createClient();
   const ddjjId = String(formData.get("ddjj_id") ?? "");
   const clienteId = String(formData.get("cliente_id") ?? "");
-  const tipo = String(formData.get("tipo") ?? "vep"); // vep | acuse
+  const tipo = String(formData.get("tipo") ?? "vep"); // vep | acuse | ddjj
   const archivo = formData.get("archivo") as File | null;
 
   if (!archivo || archivo.size === 0) return { error: "Elegí un archivo." };
   if (archivo.size > 10 * 1024 * 1024) return { error: "El archivo supera los 10 MB." };
 
-  const nombre = `${clienteId}/${tipo === "vep" ? "VEP" : "ACUSE"}/${Date.now()}-${archivo.name.replace(/[^\w.\-]/g, "_")}`;
+  const categoria = tipo === "vep" ? "VEP" : tipo === "ddjj" ? "DDJJ" : "ACUSE";
+  const nombre = `${clienteId}/${categoria}/${Date.now()}-${archivo.name.replace(/[^\w.\-]/g, "_")}`;
 
   const { error: upError } = await supabase.storage
     .from("documentos")
@@ -92,7 +93,8 @@ export async function subirPdfDDJJ(formData: FormData): Promise<DDJJState> {
 
   if (upError) return { error: `No se pudo subir: ${upError.message}` };
 
-  const campo = tipo === "vep" ? "path_pdf_vep" : "path_pdf_acuse";
+  const campo =
+    tipo === "vep" ? "path_pdf_vep" : tipo === "ddjj" ? "path_pdf_ddjj" : "path_pdf_acuse";
   await supabase
     .from("declaraciones_juradas")
     .update({ [campo]: nombre })
@@ -100,8 +102,13 @@ export async function subirPdfDDJJ(formData: FormData): Promise<DDJJState> {
 
   await supabase.from("documentos").insert({
     cliente_id: clienteId,
-    titulo: tipo === "vep" ? "VEP de pago" : "Acuse de presentación",
-    categoria: tipo === "vep" ? "VEP" : "ACUSE",
+    titulo:
+      tipo === "vep"
+        ? "VEP de pago"
+        : tipo === "ddjj"
+          ? "Declaración jurada"
+          : "Acuse de presentación",
+    categoria,
     path_archivo: nombre,
     mime_type: archivo.type,
     tamano_bytes: archivo.size,
