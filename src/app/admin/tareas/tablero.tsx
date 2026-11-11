@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { CalendarClock, User } from "lucide-react";
 import { cambiarEstadoTarea } from "./actions";
+import { DescripcionTarea } from "./descripcion-tarea";
 import type { TareaConRelaciones } from "./page";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -84,6 +85,11 @@ export function TableroTareas({ tareas }: { tareas: TareaConRelaciones[] }) {
                         </span>
                       )}
                     </div>
+
+                    <DescripcionTarea
+                      id={t.id}
+                      descripcion={t.descripcion}
+                    />
 
                     <Select
                       className="mt-3 h-8 text-xs"

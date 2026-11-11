@@ -40,3 +40,19 @@ export async function cambiarEstadoTarea(id: string, estado: string) {
     .eq("id", id);
   revalidatePath("/admin/tareas");
 }
+
+export async function actualizarDescripcionTarea(
+  id: string,
+  descripcion: string
+): Promise<TareaState> {
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("tareas_estudio")
+    .update({ descripcion: descripcion.trim() || null })
+    .eq("id", id);
+
+  if (error) return { error: `No se pudo guardar: ${error.message}` };
+
+  revalidatePath("/admin/tareas");
+  return { ok: true };
+}
