@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient, createClient } from "@/lib/supabase/server";
 import { obtenerUsuario } from "@/lib/supabase/usuario";
 import type { Profile, RolUsuario } from "@/types/database";
 
@@ -44,9 +44,12 @@ export function rutaPorRol(rol: RolUsuario): string {
 
 /**
  * El login acepta CUIT/DNI o email. Supabase Auth trabaja con email, asi que
- * un identificador numerico se resuelve contra profiles.username mediante la
- * funcion SECURITY DEFINER `email_por_username`, que solo devuelve el email y
- * no expone el resto del perfil.
+ * un identificador numerico se resuelve contra profiles.username.
+ *
+ * La busqueda la hace SOLO el servidor con service_role (migracion 0015): un
+ * visitante ya no puede preguntarle a la base el email de un DNI/CUIT.
+ * Si SUPABASE_SERVICE_ROLE_KEY no esta configurada se usa la funcion
+ * email_por_username, que funciona hasta que se aplique la 0015.
  */
 export async function identificadorAEmail(
   identificador: string
@@ -56,6 +59,25 @@ export async function identificadorAEmail(
 
   const digitos = limpio.replace(/\D/g, "");
   if (!digitos) return null;
+
+  let admin: ReturnType<typeof createAdminClient> | null = null;
+  try {
+    admin = createAdminClient();
+  } catch {
+    console.error("[login] Falta SUPABASE_SERVICE_ROLE_KEY: se usa email_por_username");
+  }
+
+  if (admin) {
+    const { data, error } = await admin
+      .from("profiles")
+      .select("email")
+      .eq("username", digitos)
+      .eq("activo", true)
+      .limit(1)
+      .maybeSingle();
+    if (error || !data) return null;
+    return (data as { email: string }).email;
+  }
 
   const supabase = createClient();
   const { data, error } = await supabase.rpc("email_por_username", {
